@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Kitten</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #e9ecef;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 500px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #495057;
+            font-size: 16px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            font-size: 16px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #212529;
+        }
+
+        span {
+            font-weight: bold;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sistema Kitten</h1>
+        <div class="section">
+            <label for="receberValor">Se você quer receber (em R$):</label>
+            <input type="text" id="receberValor" oninput="formatarCampoMonetario(this); calcularSaque()">
+            <p>Será sacado: <span id="resultadoSaque">R$ 0,00</span></p>
+        </div>
+        <div class="section">
+            <label for="sacarValor">Se você quer que seja sacado (em R$):</label>
+            <input type="text" id="sacarValor" oninput="formatarCampoMonetario(this); calcularReceber()">
+            <p>Você receberá: <span id="resultadoReceber">R$ 0,00</span></p>
+        </div>
+    </div>
+    <script>
+        function formatarValor(valor) {
+            return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        function formatarCampoMonetario(campo) {
+            let valorNumerico = parseFloat(campo.value.replace(/\D/g, '')) || 0;
+            campo.value = (valorNumerico / 100).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        function calcularSaque() {
+            const receberValor = parseFloat(document.getElementById('receberValor').value.replace(/\./g, '').replace(',', '.')) || 0;
+            const resultado = receberValor / 0.87;
+            document.getElementById('resultadoSaque').textContent = formatarValor(resultado);
+        }
+
+        function calcularReceber() {
+            const sacarValor = parseFloat(document.getElementById('sacarValor').value.replace(/\./g, '').replace(',', '.')) || 0;
+            const resultado = sacarValor * 0.87;
+            document.getElementById('resultadoReceber').textContent = formatarValor(resultado);
+        }
+    </script>
+</body>
+</html>
