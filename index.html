@@ -16,26 +16,26 @@
         }
 
         .container {
-            width: 80%;
+            width: 100%;
             max-width: 500px;
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin: 20px;
+            margin: 10px;
         }
 
         h1 {
-            font-size: 28px;
+            font-size: 24px;
             color: #007bff;
             text-align: center;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .section {
-            margin-bottom: 30px;
-            padding: 15px;
+            margin-bottom: 20px;
+            padding: 10px;
             background-color: #f8f9fa;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -43,7 +43,7 @@
 
         label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             color: #495057;
             font-size: 16px;
         }
@@ -51,7 +51,7 @@
         input {
             width: 100%;
             padding: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             border-radius: 4px;
             border: 1px solid #ced4da;
             font-size: 16px;
@@ -65,6 +65,39 @@
         span {
             font-weight: bold;
             color: #007bff;
+        }
+
+        /* Media queries for responsive design */
+        @media (min-width: 576px) {
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+                margin-bottom: 30px;
+            }
+
+            .section {
+                margin-bottom: 30px;
+                padding: 15px;
+            }
+
+            label {
+                margin-bottom: 10px;
+                font-size: 18px;
+            }
+
+            input {
+                padding: 10px;
+                margin-bottom: 15px;
+                font-size: 18px;
+            }
+
+            p {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
