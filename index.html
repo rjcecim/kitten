@@ -122,13 +122,13 @@
 
         function calcularSaque() {
             const receberValor = parseFloat(document.getElementById('receberValor').value.replace(/\./g, '').replace(',', '.')) || 0;
-            const resultado = receberValor / 0.88;
+            const resultado = receberValor / 0.90;
             document.getElementById('resultadoSaque').textContent = formatarValor(resultado);
         }
 
         function calcularReceber() {
             const sacarValor = parseFloat(document.getElementById('sacarValor').value.replace(/\./g, '').replace(',', '.')) || 0;
-            const resultado = sacarValor * 0.88;
+            const resultado = sacarValor * 0.90;
             document.getElementById('resultadoReceber').textContent = formatarValor(resultado);
         }
     </script>
