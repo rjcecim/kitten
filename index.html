@@ -1,96 +1,158 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <title>Sistema Kitten</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        /* Variáveis CSS para facilitar a manutenção */
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --background-color: #e9ecef;
+            --container-bg: #fff;
+            --section-bg: #f8f9fa;
+            --input-border: #ced4da;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Reset básico */
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background-color);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #e9ecef;
+            padding: 20px;
+            animation: fadeIn 1s ease-in-out;
         }
 
         .container {
             width: 100%;
             max-width: 500px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin: 20px;
+            background-color: var(--container-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px var(--shadow-color);
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px var(--shadow-color);
         }
 
         .capa {
             width: 100%;
             height: auto;
-            border-radius: 10px 10px 0 0;
+            border-radius: 15px 15px 0 0;
             object-fit: cover;
+            transition: transform var(--transition-speed);
+        }
+
+        .capa:hover {
+            transform: scale(1.05);
         }
 
         h1 {
-            font-size: 28px;
-            color: #007bff;
+            font-size: 2rem;
+            color: var(--primary-color);
             text-align: center;
-            margin: 20px 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin: 25px 0;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .section {
-            margin-bottom: 30px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: var(--section-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+        }
+
+        .section:hover {
+            background-color: #e2e6ea;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         }
 
         label {
             display: block;
-            margin-bottom: 10px;
-            color: #495057;
-            font-size: 16px;
+            margin-bottom: 8px;
+            color: var(--secondary-color);
+            font-size: 1rem;
+            transition: color var(--transition-speed);
         }
 
         input {
             width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-            border: 1px solid #ced4da;
-            font-size: 16px;
+            padding: 10px;
+            margin-bottom: 12px;
+            border-radius: 5px;
+            border: 1px solid var(--input-border);
+            font-size: 1rem;
+            transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+        }
+
+        input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px var(--primary-color);
+            outline: none;
         }
 
         p {
-            font-size: 16px;
+            font-size: 1rem;
             color: #212529;
+            transition: color var(--transition-speed);
         }
 
         span {
             font-weight: bold;
-            color: #007bff;
+            color: var(--primary-color);
+            transition: color var(--transition-speed);
         }
 
-        @media (max-width: 576px) {
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsividade Avançada */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .section {
+                padding: 18px;
+            }
+
+            label, input, p {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
             .container {
-                margin: 10px;
-                padding: 15px;
+                padding: 20px;
             }
 
             h1 {
-                font-size: 24px;
+                font-size: 1.5rem;
             }
 
-            label {
-                font-size: 14px;
-            }
-
-            p {
-                font-size: 14px;
+            label, input, p {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -101,12 +163,12 @@
         <h1>Sistema Kitten</h1>
         <div class="section">
             <label for="receberValor">Se você quer receber (em R$):</label>
-            <input type="text" id="receberValor" oninput="formatarCampoMonetario(this); calcularSaque()">
+            <input type="text" id="receberValor" oninput="formatarCampoMonetario(this); calcularSaque()" placeholder="Ex: 1000,00">
             <p>Será sacado: <span id="resultadoSaque">R$ 0,00</span></p>
         </div>
         <div class="section">
             <label for="sacarValor">Se você quer que seja sacado (em R$):</label>
-            <input type="text" id="sacarValor" oninput="formatarCampoMonetario(this); calcularReceber()">
+            <input type="text" id="sacarValor" oninput="formatarCampoMonetario(this); calcularReceber()" placeholder="Ex: 1000,00">
             <p>Você receberá: <span id="resultadoReceber">R$ 0,00</span></p>
         </div>
     </div>
