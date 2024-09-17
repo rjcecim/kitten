@@ -7,8 +7,8 @@
     <!-- Inclusão das fontes do Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Escolha das fontes Poppins para títulos e Roboto para o corpo -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <!-- Escolha das fontes Montserrat para títulos e Roboto para o corpo -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
     <style>
         /* Variáveis CSS para facilitar a manutenção */
         :root {
@@ -21,7 +21,10 @@
             --shadow-color: rgba(0, 0, 0, 0.1);
             --transition-speed: 0.3s;
             --font-primary: 'Roboto', sans-serif;
-            --font-secondary: 'Poppins', sans-serif;
+            --font-secondary: 'Montserrat', sans-serif;
+            /* Gradiente para o título */
+            --gradient-start: #007bff;
+            --gradient-end: #6610f2;
         }
 
         /* Reset básico */
@@ -72,10 +75,16 @@
         h1 {
             font-family: var(--font-secondary);
             font-size: 2rem;
-            color: var(--primary-color);
+            /* Aplicação do gradiente no texto */
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
             text-align: center;
             margin: 25px 0;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background 0.5s ease;
         }
 
         .section {
