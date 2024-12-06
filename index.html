@@ -190,37 +190,85 @@
             transition: color var(--transition-speed);
         }
 
-        /* Saldo Atual e Saldo Restante */
-        .saldo-container {
-            margin-bottom: 25px;
-            padding: 20px;
+        /* Containers de Informação (Será sacado e Saldo Restante) */
+        .info-container {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
             background-color: var(--section-bg);
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
             transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
         }
 
-        .saldo-container:hover {
+        .info-container:hover {
             background-color: #f1f3f5;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .saldo-container i {
-            font-size: 1.5rem;
+        .info-text {
+            font-size: 1.1rem;
+            font-family: var(--font-secondary);
+            color: var(--secondary-color);
+        }
+
+        .info-valor {
+            font-size: 1.1rem;
+            font-family: var(--font-primary);
             color: var(--primary-color);
         }
 
-        .saldo-text {
-            font-size: 1.2rem;
-            font-family: var(--font-secondary);
+        /* Nova Estilização para Saldo Atual */
+        .saldo-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
         }
 
-        .saldo-valor {
+        .saldo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .saldo-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .saldo-info i {
+            font-size: 2rem;
+            margin-right: 15px;
+        }
+
+        .saldo-details {
+            text-align: left;
+        }
+
+        .saldo-details .saldo-titulo {
+            font-family: var(--font-secondary);
             font-size: 1.2rem;
-            font-family: var(--font-primary);
+            margin-bottom: 5px;
+        }
+
+        .saldo-details .saldo-valor {
+            font-family: var(--font-secondary);
+            font-size: 1.8rem;
+            font-weight: bold;
+            animation: countUp 1s ease-out forwards;
+        }
+
+        /* Animação de contagem */
+        @keyframes countUp {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         /* Responsividade */
@@ -229,7 +277,7 @@
                 font-size: 1.8rem;
             }
 
-            .section, .saldo-container {
+            .section, .info-container, .saldo-card {
                 padding: 18px;
             }
 
@@ -237,8 +285,13 @@
                 font-size: 0.95rem;
             }
 
-            .saldo-text, .saldo-valor {
+            .info-text, .info-valor, .saldo-titulo, .saldo-valor {
                 font-size: 1rem;
+            }
+
+            .saldo-info i {
+                font-size: 1.5rem;
+                margin-right: 10px;
             }
         }
 
@@ -255,8 +308,13 @@
                 font-size: 0.9rem;
             }
 
-            .saldo-text, .saldo-valor {
+            .info-text, .info-valor, .saldo-titulo, .saldo-valor {
                 font-size: 0.95rem;
+            }
+
+            .saldo-info i {
+                font-size: 1.3rem;
+                margin-right: 8px;
             }
         }
 
@@ -275,17 +333,25 @@
         <!-- Título do sistema -->
         <h1>Sistema Kitten</h1>
 
-        <!-- Entrada do Saldo Atual -->
+        <!-- Entrada do Saldo Inicial -->
         <div class="section">
             <label for="saldoInicial"><i class="bi bi-bank2"></i> Saldo Inicial (R$):</label>
             <input type="text" id="saldoInicial" oninput="formatarCampoMonetario(this); atualizarSaldo()" placeholder="Ex: 5000,00">
             <div id="saldoInicialError" class="error-message d-none">Por favor, insira um saldo válido.</div>
         </div>
 
-        <!-- Saldo Atual -->
-        <div class="saldo-container">
-            <div class="saldo-text">Saldo Atual:</div>
-            <div class="saldo-valor">R$ <span id="saldoAtual">0,00</span></div>
+        <!-- Saldo Atual - Nova Estilização -->
+        <div class="saldo-card">
+            <div class="saldo-info">
+                <i class="bi bi-wallet2"></i>
+                <div class="saldo-details">
+                    <div class="saldo-titulo">Saldo Atual:</div>
+                    <div class="saldo-valor" id="saldoAtual">0,00</div>
+                </div>
+            </div>
+            <div>
+                <i class="bi bi-graph-up-arrow" title="Gráfico de Saldo"></i>
+            </div>
         </div>
 
         <!-- Primeira seção: entrada do valor a ser recebido -->
@@ -293,10 +359,16 @@
             <label for="receberValor"><i class="bi bi-cash-stack"></i> Se você quer receber (em R$):</label>
             <input type="text" id="receberValor" oninput="formatarCampoMonetario(this); calcularSaque()" placeholder="Ex: 1000,00">
             <div id="receberValorError" class="error-message d-none">Saldo insuficiente para este valor.</div>
-            <p>Será sacado: <span id="resultadoSaque">R$ 0,00</span></p>
-            <div class="saldo-container">
-                <div class="saldo-text">Saldo Restante:</div>
-                <div class="saldo-valor">R$ <span id="saldoRestanteSaque">0,00</span></div>
+            
+            <!-- Informações padronizadas -->
+            <div class="info-container">
+                <div class="info-text">Será sacado:</div>
+                <div class="info-valor">R$ <span id="resultadoSaque">0,00</span></div>
+            </div>
+
+            <div class="info-container">
+                <div class="info-text">Saldo Restante:</div>
+                <div class="info-valor">R$ <span id="saldoRestanteSaque">0,00</span></div>
             </div>
         </div>
 
@@ -305,10 +377,16 @@
             <label for="sacarValor"><i class="bi bi-wallet2"></i> Se você quer que seja sacado (em R$):</label>
             <input type="text" id="sacarValor" oninput="formatarCampoMonetario(this); calcularReceber()" placeholder="Ex: 1000,00">
             <div id="sacarValorError" class="error-message d-none">Saldo insuficiente para este valor.</div>
-            <p>Você receberá: <span id="resultadoReceber">R$ 0,00</span></p>
-            <div class="saldo-container">
-                <div class="saldo-text">Saldo Restante:</div>
-                <div class="saldo-valor">R$ <span id="saldoRestanteReceber">0,00</span></div>
+            
+            <!-- Informações padronizadas -->
+            <div class="info-container">
+                <div class="info-text">Você receberá:</div>
+                <div class="info-valor">R$ <span id="resultadoReceber">0,00</span></div>
+            </div>
+
+            <div class="info-container">
+                <div class="info-text">Saldo Restante:</div>
+                <div class="info-valor">R$ <span id="saldoRestanteReceber">0,00</span></div>
             </div>
         </div>
     </div>
@@ -352,6 +430,8 @@
         const limparResultados = () => {
             document.getElementById('resultadoSaque').textContent = formatarValor(0);
             document.getElementById('resultadoReceber').textContent = formatarValor(0);
+            document.getElementById('saldoRestanteSaque').textContent = formatarValor(saldoAtual);
+            document.getElementById('saldoRestanteReceber').textContent = formatarValor(saldoAtual);
             limparErros();
         };
 
@@ -381,9 +461,9 @@
                 return;
             }
 
-            document.getElementById('resultadoSaque').textContent = formatarValor(resultado);
+            document.getElementById('resultadoSaque').textContent = saldoFormatado(resultado);
             const saldoRestante = saldoAtual - resultado;
-            document.getElementById('saldoRestanteSaque').textContent = formatarValor(saldoRestante);
+            document.getElementById('saldoRestanteSaque').textContent = saldoFormatado(saldoRestante);
         };
 
         // Calcular o valor a receber baseado no valor a sacar
@@ -402,9 +482,14 @@
                 return;
             }
 
-            document.getElementById('resultadoReceber').textContent = formatarValor(resultado);
+            document.getElementById('resultadoReceber').textContent = saldoFormatado(resultado);
             const saldoRestante = saldoAtual - sacarValor;
-            document.getElementById('saldoRestanteReceber').textContent = formatarValor(saldoRestante);
+            document.getElementById('saldoRestanteReceber').textContent = saldoFormatado(saldoRestante);
+        };
+
+        // Formatar saldo para exibição
+        const saldoFormatado = (valor) => {
+            return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         };
 
         // Validar e formatar o Saldo Inicial
