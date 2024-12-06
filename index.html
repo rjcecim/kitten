@@ -232,7 +232,7 @@
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: transform var(--transition-speed), box-shadow var(--transition-speed);
-            position: relative; /* Para posicionar os ícones absolutament */
+            position: relative; /* Para posicionar os ícones absolutamente */
             margin-bottom: 25px; /* Espaço abaixo do card */
         }
 
@@ -304,6 +304,15 @@
                 left: 10px;
                 right: 10px;
             }
+
+            /* Ajustes para evitar sobreposição */
+            .saldo-details .saldo-titulo {
+                font-size: 1rem;
+            }
+
+            .saldo-details .saldo-valor {
+                font-size: 1.5rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -328,6 +337,15 @@
                 left: 8px;
                 right: 8px;
             }
+
+            /* Ajustes adicionais para telas muito pequenas */
+            .saldo-details .saldo-titulo {
+                font-size: 0.9rem;
+            }
+
+            .saldo-details .saldo-valor {
+                font-size: 1.3rem;
+            }
         }
 
         /* Animação de fade-in */
@@ -348,7 +366,7 @@
         <!-- Entrada do Saldo Inicial -->
         <div class="section">
             <label for="saldoInicial"><i class="bi bi-bank2"></i> Saldo Inicial (R$):</label>
-            <input type="text" id="saldoInicial" oninput="formatarCampoMonetario(this); atualizarSaldo()" placeholder="Ex: 2500,00">
+            <input type="text" id="saldoInicial" oninput="formatarCampoMonetario(this); atualizarSaldo()" placeholder="Ex: 5000,00">
             <div id="saldoInicialError" class="error-message d-none">Por favor, insira um saldo válido.</div>
         </div>
 
