@@ -363,7 +363,7 @@
         <!-- Entrada do Saldo Inicial -->
         <div class="section">
             <label for="saldoInicial"><i class="bi bi-bank2"></i> Saldo Inicial (R$):</label>
-            <input type="text" id="saldoInicial" oninput="formatarCampoMonetario(this); atualizarSaldo()" placeholder="Ex: 5000,00">
+            <input type="text" id="saldoInicial" oninput="formatarCampoMonetario(this); atualizarSaldo()" placeholder="Ex: 2500,00">
             <div id="saldoInicialError" class="error-message d-none">Por favor, insira um saldo válido.</div>
         </div>
 
@@ -384,7 +384,7 @@
         <!-- Primeira seção: entrada do valor a ser recebido -->
         <div class="section">
             <label for="receberValor"><i class="bi bi-cash-stack"></i> Se você quer receber (em R$):</label>
-            <input type="text" id="receberValor" oninput="formatarCampoMonetario(this); calcularSaque()" placeholder="Ex: 1000,00">
+            <input type="text" id="receberValor" oninput="formatarCampoMonetario(this); calcularSaque()" placeholder="Ex: 2250,00">
             <div id="receberValorError" class="error-message d-none">Saldo insuficiente para este valor.</div>
             
             <!-- Informações padronizadas -->
@@ -402,7 +402,7 @@
         <!-- Segunda seção: entrada do valor a ser sacado -->
         <div class="section">
             <label for="sacarValor"><i class="bi bi-wallet2"></i> Se você quer que seja sacado (em R$):</label>
-            <input type="text" id="sacarValor" oninput="formatarCampoMonetario(this); calcularReceber()" placeholder="Ex: 1000,00">
+            <input type="text" id="sacarValor" oninput="formatarCampoMonetario(this); calcularReceber()" placeholder="Ex: 2500,00">
             <div id="sacarValorError" class="error-message d-none">Saldo insuficiente para este valor.</div>
             
             <!-- Informações padronizadas -->
