@@ -60,6 +60,7 @@
             border-radius: 15px;
             box-shadow: 0 8px 20px var(--shadow-color);
             transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+            position: relative; /* Para posicionamento absoluto dos ícones */
         }
 
         .container-custom:hover {
@@ -224,13 +225,15 @@
         .saldo-card {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center; /* Centraliza os itens horizontalmente */
             background-color: var(--primary-color);
             color: #fff;
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+            position: relative; /* Para posicionar os ícones absolutament */
+            margin-bottom: 25px; /* Espaço abaixo do card */
         }
 
         .saldo-card:hover {
@@ -238,18 +241,25 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
 
-        .saldo-info {
-            display: flex;
-            align-items: center;
+        /* Ícone à Esquerda */
+        .saldo-card .left-icon {
+            position: absolute;
+            left: 20px;
+            font-size: 2rem;
         }
 
-        .saldo-info i {
+        /* Ícone à Direita */
+        .saldo-card .right-icon {
+            position: absolute;
+            right: 20px;
             font-size: 2rem;
-            margin-right: 15px;
         }
 
         .saldo-details {
-            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
 
         .saldo-details .saldo-titulo {
@@ -289,9 +299,10 @@
                 font-size: 1rem;
             }
 
-            .saldo-info i {
+            .saldo-card .left-icon, .saldo-card .right-icon {
                 font-size: 1.5rem;
-                margin-right: 10px;
+                left: 10px;
+                right: 10px;
             }
         }
 
@@ -312,9 +323,10 @@
                 font-size: 0.95rem;
             }
 
-            .saldo-info i {
+            .saldo-card .left-icon, .saldo-card .right-icon {
                 font-size: 1.3rem;
-                margin-right: 8px;
+                left: 8px;
+                right: 8px;
             }
         }
 
@@ -336,22 +348,18 @@
         <!-- Entrada do Saldo Inicial -->
         <div class="section">
             <label for="saldoInicial"><i class="bi bi-bank2"></i> Saldo Inicial (R$):</label>
-            <input type="text" id="saldoInicial" oninput="formatarCampoMonetario(this); atualizarSaldo()" placeholder="Ex: 5000,00">
+            <input type="text" id="saldoInicial" oninput="formatarCampoMonetario(this); atualizarSaldo()" placeholder="Ex: 2500,00">
             <div id="saldoInicialError" class="error-message d-none">Por favor, insira um saldo válido.</div>
         </div>
 
         <!-- Saldo Atual - Nova Estilização -->
         <div class="saldo-card">
-            <div class="saldo-info">
-                <i class="bi bi-wallet2"></i>
-                <div class="saldo-details">
-                    <div class="saldo-titulo">Saldo Atual:</div>
-                    <div class="saldo-valor" id="saldoAtual">0,00</div>
-                </div>
+            <i class="bi bi-wallet2 left-icon"></i>
+            <div class="saldo-details">
+                <div class="saldo-titulo">Saldo Atual:</div>
+                <div class="saldo-valor" id="saldoAtual">0,00</div>
             </div>
-            <div>
-                <i class="bi bi-graph-up-arrow" title="Gráfico de Saldo"></i>
-            </div>
+            <i class="bi bi-graph-up-arrow right-icon" title="Gráfico de Saldo"></i>
         </div>
 
         <!-- Primeira seção: entrada do valor a ser recebido -->
